@@ -722,6 +722,12 @@ static u32 mmc_sd_num_wr_blocks(struct mmc_card *card)
 	return result;
 }
 
+u32 __mmc_sd_num_wr_blocks(struct mmc_card *card)
+{
+	return mmc_sd_num_wr_blocks(card);
+}
+EXPORT_SYMBOL(__mmc_sd_num_wr_blocks);
+
 static int send_stop(struct mmc_card *card, u32 *status)
 {
 	struct mmc_command cmd = {0};

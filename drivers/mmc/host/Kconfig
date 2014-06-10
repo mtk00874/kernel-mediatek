@@ -689,3 +689,29 @@ config MMC_REALTEK_PCI
 	help
 	  Say Y here to include driver code to support SD/MMC card interface
 	  of Realtek PCI-E card reader
+# Memory Card
+config MTK_MMC # MMC_MT6516 MMC_MT6573
+	tristate "MediaTek SD/MMC Card Interface support"
+    default y
+	---help---
+	  This selects the MediaTek(R) Secure digital and Multimedia card Interface.
+	  If you have a machine with a integrated SD/MMC card reader, say Y or M here.
+	  If unsure, say N.
+
+config MTK_EMMC_SUPPORT
+	bool "MTK_EMMC_SUPPORT"
+    default y
+	help
+	  eMMC feature enable/disable
+
+config MTK_NEW_COMBO_EMMC_SUPPORT
+	bool "MTK_NEW_COMBO_EMMC_SUPPORT"
+    default y
+	help
+	  Add option for new combo-emmc
+
+config MTK_SHARED_SDCARD
+	bool "MTK_SHARED_SDCARD"
+    default n
+	help
+	  sdcard will be a folder of /data

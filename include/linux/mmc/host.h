@@ -100,6 +100,19 @@ struct mmc_host_ops {
 	void	(*pre_req)(struct mmc_host *host, struct mmc_request *req,
 			   bool is_first_req);
 	void	(*request)(struct mmc_host *host, struct mmc_request *req);
+	/*++add tuning for Mediatek MSDC host++*/
+	void    (*tuning)(struct mmc_host *host, struct mmc_request *req);
+	/*--add tuning for Mediatek MSDC host--*/
+	/*++add send stop for Mediatek MSDC host++*/
+	void    (*send_stop)(struct mmc_host *host, struct mmc_request *req);
+	/*--add send stop for Mediatek MSDC host--*/
+	/*++add dma error reset for Mediatek MSDC host++*/
+	void    (*dma_error_reset)(struct mmc_host *host);
+	/*--add dma error reset for Mediatek MSDC host--*/
+	/*++add written data check for Mediatek MSDC host++*/
+	bool    (*check_written_data)(struct mmc_host *host, struct mmc_request *req);
+	/*--add written data check for Mediatek MSDC host--*/
+
 	/*
 	 * Avoid calling these three functions too often or in a "fast path",
 	 * since underlaying controller might implement them in an expensive
@@ -310,6 +323,7 @@ struct mmc_host {
 	spinlock_t		lock;		/* lock for claim and bus ops */
 
 	struct mmc_ios		ios;		/* current io bus settings */
+	u32 ocr;					/* the current OCR setting */
 
 	/* group bitfields together to minimize padding */
 	unsigned int		use_spi_crc:1;
@@ -361,6 +375,10 @@ struct mmc_host {
 	unsigned int		actual_clock;	/* Actual HC clock rate */
 
 	unsigned int		slotno;	/* used for sdio acpi binding */
+
+	struct completion           card_init_done;
+	void (*card_init_complete)(struct mmc_host*);
+	void (*card_init_wait)(struct mmc_host*);
 
 	unsigned long		private[0] ____cacheline_aligned;
 };

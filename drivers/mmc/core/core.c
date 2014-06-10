@@ -546,7 +546,14 @@ struct mmc_async_req *mmc_start_req(struct mmc_host *host,
 			 * nothing to return
 			 */
 			return NULL;
+		} else {
+			host->ops->send_stop(host,host->areq->mrq); //add for MTK msdc host <Yuchi Xu>
+			do{
+				host->ops->tuning(host, host->areq->mrq);	//add for MTK msdc host <Yuchi Xu>
+			}while(host->ops->check_written_data(host,host->areq->mrq));
+			err = host->areq->err_check(host->card, host->areq);
 		}
+
 		/*
 		 * Check BKOPS urgency for each R1 response
 		 */
