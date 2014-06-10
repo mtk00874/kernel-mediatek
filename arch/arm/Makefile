@@ -205,6 +205,7 @@ machine-$(CONFIG_ARCH_W90X900)		+= w90x900
 machine-$(CONFIG_ARCH_ZYNQ)		+= zynq
 machine-$(CONFIG_FOOTBRIDGE)		+= footbridge
 machine-$(CONFIG_PLAT_SPEAR)		+= spear
+machine-$(CONFIG_ARCH_MT8127)		+= mt8127
 
 # Platform directory name.  This list is sorted alphanumerically
 # by CONFIG_* macro name.
