@@ -1506,6 +1506,26 @@ config SERIAL_ST_ASC_CONSOLE
 	bool "Support for console on ST ASC"
 	depends on SERIAL_ST_ASC=y
 	select SERIAL_CORE_CONSOLE
+	
+# Serial Port Driver
+menuconfig MTK_SERIAL # SERIAL_MT6516 SERIAL_MT6573
+        tristate "MediaTek Serial Port Support"
+        select SERIAL_CORE
+        default y
+        ---help---
+          This selects MediaTek(R) internal UART driver.
+          If you want to use MediaTek(R) internal UART driver, say Y or M here.
+          If unsure, say N.
+
+config MTK_SERIAL_CONSOLE # SERIAL_MT6516_CONSOLE SERIAL_MT6573_CONSOLE
+        bool "MediaTek Console on Serial Port Support"
+        depends on MTK_SERIAL=y
+        select SERIAL_CORE_CONSOLE
+        default y
+        ---help---
+          Say Y here if you wish to use MT6516 internal UART as the system
+          console. You should alter the default console setting by kernel
+          command line option "console=ttyMT0" or "console=ttyMT1".
 
 endmenu
 
